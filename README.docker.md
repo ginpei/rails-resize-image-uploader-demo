@@ -17,6 +17,12 @@ Hold `Ctrl + C` to stop.
 
 # Misc
 
+## Bundle install
+
+```console
+$ docker-compose exec rails bundle install
+```
+
 ## Migrate database
 
 ```console
