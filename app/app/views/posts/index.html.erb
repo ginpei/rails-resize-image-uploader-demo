@@ -14,7 +14,7 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.name %></td>
+        <td><%= post.name %> <%= image_tag post.image_url(:thumb) %></td>
         <td><%= post.comment %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
