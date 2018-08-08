@@ -1,4 +1,4 @@
-# MySQL. Versions 5.0 and up are supported.
+# MySQL. Versions 5.1.10 and up are supported.
 #
 # Install the MySQL driver
 #   gem install mysql2
@@ -7,26 +7,26 @@
 #   gem 'mysql2'
 #
 # And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.7/en/old-client.html
+#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
 default: &default
   adapter: mysql2
   encoding: utf8
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password:
   host: db
 
 development:
   <<: *default
-  database: app_development
+  database: resize-image-uploader-demo_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: app_test
+  database: resize-image-uploader-demo_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: app_production
-  username: app
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  database: resize-image-uploader-demo_production
+  username: resize-image-uploader-demo
+  password: <%= ENV['RESIZE-IMAGE-UPLOADER-DEMO_DATABASE_PASSWORD'] %>
