@@ -75,6 +75,10 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
       if (image) {
         const smallImageData = await makeSmallImage(image, maxWidth, maxHeight, file.type);
         row.blob = smallImageData;
+
+        // log for demo
+        console.log(`[buildThriftyData] : ${row.name} ${row.originalSize} -> ${row.blob.size}`,
+          `(${Math.round(row.blob.size / row.originalSize * 1000) / 10}%)`);
       }
 
       return row;
