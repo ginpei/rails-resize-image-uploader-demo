@@ -153,7 +153,7 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
     if (width < maxWidth && height < maxHeight) {
       scale = 1;
     } else {
-      scale = Math.min(maxWidth / width, maxHeight, height);
+      scale = Math.min(maxWidth / width, maxHeight / height);
     }
 
     const size = {
