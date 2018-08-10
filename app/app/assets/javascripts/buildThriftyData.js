@@ -1,4 +1,5 @@
 /**
+ * Build form data resizing image files smaller as specified.
  * @param {HTMLFormElement} form
  * @param {number} maxWidth
  * @param {number} maxHeight
