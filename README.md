@@ -2,7 +2,7 @@ Rails demo app that resizes image files smaller before uploading.
 
 # Get started
 
-You need [Docker](https://www.docker.com/get-started).
+You need [Docker](https://www.docker.com/get-started). Otherwise you need MySQL that host is named `db`.
 
 ```console
 $ git clone git@github.com:ginpei/rails-resize-image-uploader-demo.git
