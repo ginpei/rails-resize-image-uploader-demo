@@ -29,7 +29,10 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
+        # format.json { render :show, status: :created, location: @post }
+        format.json do
+          render json: { status: :created, post: @post, location: posts_path }
+        end
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -43,7 +46,10 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+        # format.json { render :show, status: :ok, location: @post }
+        format.json do
+          render json: { status: :ok, post: @post, location: posts_path }
+        end
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
