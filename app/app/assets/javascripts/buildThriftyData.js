@@ -2,6 +2,7 @@
  * @param {HTMLFormElement} form
  * @param {number} maxWidth
  * @param {number} maxHeight
+ * @returns {Promise<FormData>}
  * @example
  * // basic idea in JavaScript
  * const form = document.querySelector('#the-form'); // <form id="the-form">
