@@ -74,7 +74,10 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
       const image = await readFileAsImage(file);
       if (image) {
         const smallImageData = await makeSmallImage(image, maxWidth, maxHeight, file.type);
-        row.blob = smallImageData;
+
+        // if the file was small enough,
+        // this result could be larger than the original
+        row.blob = smallImageData.size < file.size ? smallImageData : file;
 
         // log for demo
         console.log(`[buildThriftyData] : ${row.name} ${row.originalSize} -> ${row.blob.size}`,
