@@ -9,7 +9,7 @@
  * const form = document.querySelector('#the-form'); // <form id="the-form">
  * form.onsubmit = async (event) => {
  *   event.preventDefault();
- *   const body = await buildThriftyData(form);
+ *   const body = await buildThriftyData(form, 400, 400);
  *   const { action, method } = form;
  *   fetch(action, { method, body });
  * };
