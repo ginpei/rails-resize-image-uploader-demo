@@ -24,7 +24,7 @@ document.addEventListener 'turbolinks:load', () ->
           Turbolinks.clearCache()
           Turbolinks.visit(data.location)
       .catch (error) ->
-        console.log error
+        console.error error
         form.querySelector('[data-disable-with]').disabled = false
 
       return
