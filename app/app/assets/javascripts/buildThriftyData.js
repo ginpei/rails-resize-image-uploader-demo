@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Build form data resizing image files smaller as specified.
  * @param {HTMLFormElement} form
@@ -55,13 +57,17 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
   // ----------------
 
   /**
-   * @param {HTMLInputElement[]} inputs
+   * @param {(Element | HTMLInputElement)[]} inputs These have to be input elements.
    * @param {number} maxWidth
    * @param {number} maxHeight
-   * @returns {Promise<{filename: string, blob: Blob, originalSize: number}[]>}
+   * @returns {Promise<IThriftyImage[]>}
    */
   function createSmallImages (inputs, maxWidth, maxHeight) {
     return Promise.all(inputs.map(async (el) => {
+      if (!(el instanceof HTMLInputElement)) {
+        throw new Error('Element must be an input');
+      }
+
       const file = el.files[0];
 
       const row = {
@@ -90,7 +96,7 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
 
   /**
    * @param {File | null} file
-   * @returns {Promise<Image>}
+   * @returns {Promise<HTMLImageElement>}
    */
   function readFileAsImage (file) {
     return new Promise((resolve, reject) => {
@@ -101,17 +107,17 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
 
       const reader = new FileReader();
       reader.onload = () => {
-        const image = new Image();
+        const image = document.createElement('img');
         image.onload = () => resolve(image);
         image.onerror = reject;
-        image.src = reader.result;
+        image.src = String(reader.result);
       };
       reader.readAsDataURL(file);
     });
   }
 
   /**
-   * @param {Image} image
+   * @param {HTMLImageElement} image
    * @param {number} maxWidth
    * @param {number} maxHeight
    * @param {string} [type]
@@ -135,10 +141,10 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
 
   /**
    *
-   * @param {Image} original
+   * @param {HTMLImageElement} original
    * @param {number} maxWidth
    * @param {number} maxHeight
-   * @returns {{ width: number, height: number}}
+   * @returns {ISize}
    */
   function calculateFillSize (original, maxWidth, maxHeight) {
     if (!original || original.nodeName !== 'IMG') {
@@ -168,7 +174,7 @@ window.buildThriftyData = async function (form, maxWidth, maxHeight) {
 
   /**
    * @param {HTMLFormElement} form
-   * @param {{filename: string, blob: Blob, originalSize: number}[]} imageData
+   * @param {IThriftyImage[]} imageData
    */
   function prepareFormData (form, imageData) {
     const data = new FormData(form);
